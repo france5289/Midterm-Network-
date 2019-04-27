@@ -22,10 +22,10 @@ body {
     z-index: -1;
 }
 dfn.Bio{
-    color: blue;
+    color: rgb(255, 153, 0);
 }
 em.Bio{
-    color: blue;
+    color: rgb(255, 153, 0);
 }
 p.Bio{
     font-family: "儷黑 Pro", "標楷體";
