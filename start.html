@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <script src="main.js"></script>
+
+    <style>
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Thasadith', sans-serif;
+            user-select: none;
+        }
+
+        .MW_BG {
+            min-height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            filter: brightness(30%);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+        
+        .MW_Start {
+            color: rgba(250, 250, 250, 0.8);
+            margin-top: 12%;
+            margin-left: 4%;
+            font-size: 8vmin;
+            font-weight: bold;
+            line-height: 8vmin;
+            position: fixed;
+        }
+
+        .MW_Start .chinese {
+            opacity: 1;
+            font-weight: bold;
+            font-family: '微軟正黑體', sans-serif;
+            font-size: 4vmin;
+            line-height: 4vmin;
+            border-left: 0.5vmin solid rgba(250, 250, 250, 0.8);
+            cursor: pointer;
+            display: block;
+            transition: 1s;
+        }
+    </style>
+
+    <script>
+        function hrefHome() {
+            window.location.replace('home.html');
+        }
+
+        function fontSwitch() {
+            if ( document.getElementById("startNow").style.opacity == "0" )
+                document.getElementById("startNow").style.opacity = "1";
+            else
+                document.getElementById("startNow").style.opacity = "0";
+        }
+
+        function callfontSwitch() {
+            setInterval(fontSwitch, 1000);
+        }
+    </script>
+
+</head>
+<body onload="callfontSwitch()">
+    <img src="https://images.wallpaperscraft.com/image/city_silhouette_art_130201_2160x3840.jpg" class="MW_BG"/>
+
+    <div class="MW_Start">
+        <p>The Website</p>
+        <p>of</p>
+        <p>Group 2. </p>
+        <pre id="startNow" class="chinese" onclick="hrefHome()">   點擊開始</pre>
+    </div>
+</body>
+</html>

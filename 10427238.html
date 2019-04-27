@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="CSS/10x27xxx.css">
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <script src="main.js"></script>
+
+    <script>
+            function navOnOrOff() {
+                var checkBox = document.getElementById("navToggle");
+
+                if ( checkBox.checked == true ) {
+                    document.getElementById("aNav").style.width = "40vmin";
+                    document.getElementById("aHeader").style.marginRight = "40vmin";
+                }
+
+                else {
+                    document.getElementById("aNav").style.width = "0";
+                    document.getElementById("aHeader").style.marginRight = "0";
+                }
+                
+            }
+            
+            function navToggleOff() {
+                document.getElementById("navToggle").checked = false;
+            }
+    </script>
+
+</head>
+<body onload="navToggleOff()">
+    <img src="https://images.wallpaperscraft.com/image/city_silhouette_art_130201_2160x3840.jpg" class="MW_BG"/>
+
+    <div id="aHeader" class="MW_Header">
+        <a href="home.html" class="mw_logo"><b>Midterm Website</b></a>
+        <input type="checkbox" value="1" id="navToggle" style="display: none" onclick="navOnOrOff()"/>
+        <label id="navicon" class="mw_nav_icon" for="navToggle">&#9776;</label>
+    </div>
+
+    <div id="aNav" class="MW_Nav">
+        <pre><a href="Information.html">Personal Information</a></pre>
+        <pre><a href="#">Play Games</a></pre>
+    </div>
+
+
+
+    <div id="aMenu" class="MW_Menu">
+        <a href="#"><input type="button" value="關於我"/></a>
+        <a href="#"><input type="button" value="學經歷"/></a>
+        <a href="#"><input type="button" value="課表"/></a>
+        <a href="#"><input type="button" value="收藏影音"/></a>
+    </div>
+</body>
+</html>

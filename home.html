@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <script src="main.js"></script>
+
+    <style>
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Thasadith', sans-serif;
+            user-select: none;
+        }
+
+        .MW_BG {
+            min-height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            filter: brightness(30%);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .MW_Header {
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-bottom: 0.1vmin solid rgba(255, 255, 255, 0.1);
+            top: 0;
+            right: 0;
+            left: 0;
+            position: fixed;
+            overflow: hidden;
+            transition: 1s;
+            z-index: 3;
+        }
+
+        .MW_Header .mw_logo {
+            color: #ffffff;
+            margin-left: 2%;
+            font-size: 0;
+            line-height: 10vmin;
+            text-decoration: none;
+            float: left;
+            transition: 1s;
+        }
+
+        .MW_Header .mw_nav_icon {
+            color: #ffffff;
+            margin-right: 2%;
+            font-size: 0;
+            line-height: 10vmin;
+            float: right;
+            cursor: pointer;
+            transition: 1s;
+        }
+
+        .MW_Nav {
+            background-color: #000000;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            text-align: right;
+            position: fixed;
+            padding-top: 1.5vmin;
+            overflow: hidden;
+            transition: 1s;
+            z-index: 2;
+        }
+
+        .MW_Nav a {
+            color: #777777;
+            margin-right: 5%;
+            text-decoration: none;
+            font-size: 4.5vmin;
+            font-weight: bold;
+            line-height: 6vmin;
+            transition: 1s;
+            text-decoration: none;
+            font-family: 'Thasadith', sans-serif;
+        }
+
+        .MW_Nav a:hover {
+            color: #ffffff;
+        }
+
+        .MW_HomeTitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 12%;
+            margin-left: 4%;
+            font-size: 8vmin;
+            font-weight: bold;
+            line-height: 8vmin;
+            position: fixed;
+        }
+    </style>
+
+    <script>
+            function navOnOrOff() {
+                var checkBox = document.getElementById("navToggle");
+
+                if ( checkBox.checked == true ) {
+                    document.getElementById("aNav").style.width = "40vmin";
+                    document.getElementById("aHeader").style.marginRight = "40vmin";
+                }
+
+                else {
+                    document.getElementById("aNav").style.width = "0";
+                    document.getElementById("aHeader").style.marginRight = "0";
+                }
+                
+            }
+
+            function navToggleOff() {
+                document.getElementById("navToggle").checked = false;
+            }
+
+            function appearNavicon() {
+                navToggleOff();
+                document.getElementById("aHeader").style.borderBottom = "0.1vmin solid rgba(255, 255, 255, 0.1)";
+                document.getElementById("logo").style.fontSize = "5vmin";
+                document.getElementById("aHeader").style.opacity = "1";
+                document.getElementById("navicon").style.fontSize = "5vmin";
+                setTimeout("transitionOff()", 1000);
+            }
+
+            function transitionOff() {
+                document.getElementById("logo").style.transition = "0s";
+                document.getElementById("navicon").style.transition = "0s";
+            }
+    </script>
+
+</head>
+<body onload="appearNavicon()">
+    <img src="https://images.wallpaperscraft.com/image/city_silhouette_art_130201_2160x3840.jpg" class="MW_BG"/>
+
+    <div id="aHeader" class="MW_Header">
+        <a id="logo" class="mw_logo" style="cursor: pointer"><b>Midterm Website</b></a>
+        <input type="checkbox" id="navToggle" style="display: none;" onclick="navOnOrOff()"/>
+        <label id="navicon" class="mw_nav_icon" for="navToggle">&#9776;</label>
+    </div>
+
+    <div id="aNav" class="MW_Nav">
+        <pre><a href="Information.html">Personal Information</a></pre>
+        <pre><a href="#">Play Games</a></pre>
+    </div>
+
+    <div class="MW_HomeTitle">
+        <p>The Website</p>
+        <p>of</p>
+        <p>Group 2. </p>
+    </div>
+</body>
+</html>
