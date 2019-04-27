@@ -56,3 +56,16 @@ td.Duration{
 tr.Table_Curriculum:hover{
     background-color: lightsteelblue;
 }
+p.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+em.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+dfn.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+iframe.VideoContent{
+    width: 100%;
+    height: 480px;
+}
