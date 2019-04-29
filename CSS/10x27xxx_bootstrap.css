@@ -1,0 +1,66 @@
+body {
+    background: white;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Thasadith', sans-serif;
+    user-select: none;
+}
+
+.MW_BG {
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    filter: brightness(30%);
+    z-index: -1;
+}
+dfn.Bio{
+    color: rgb(255, 153, 0);
+}
+em.Bio{
+    color: rgb(255, 153, 0);
+}
+p.Bio{
+    font-family: "儷黑 Pro", "標楷體";
+}
+table.Table_Curriculum{
+    width: 100%;
+    height: 80%;
+    border-collapse: collapse;
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";    
+}
+th.Table_Curriculum{
+    text-align: center;
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+    background-color: salmon;
+    color: whitesmoke;
+}
+td.Table_Curriculum{
+    text-align: center;
+    font-size: 80%;
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+td.Duration{
+    text-align: center;
+    font-size: 80%;
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+    color: whitesmoke;
+}
+tr.Table_Curriculum:hover{
+    background-color: lightsteelblue;
+}
+p.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+em.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+dfn.VideoInfo{
+    font-family: Comic Sans MS,arial,"儷黑 Pro", "標楷體";
+}
+iframe.VideoContent{
+    width: 100%;
+    height: 480px;
+}

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" type="text/css" href="CSS/10x27xxx.css">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="bootstrap-4.3.1-dist/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <script src="main.js"></script>
+
+
+    <style>
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Thasadith', sans-serif;
+            user-select: none;
+        }
+
+        canvas {
+
+            display: block;
+            margin: 40px auto 20px;
+            border: 1px solid rgba(212, 48, 37, 0.8);
+            box-shadow: 0 0 16px 2px rgba(212, 48, 37, 0.8);
+
+        }
+    </style>
+
+
+
+
+    <script>
+        function navOnOrOff() {
+            var checkBox = document.getElementById("navToggle");
+
+            if (checkBox.checked == true) {
+                document.getElementById("aNav").style.width = "40vmin";
+                document.getElementById("aHeader").style.marginRight = "40vmin";
+            }
+
+            else {
+                document.getElementById("aNav").style.width = "0";
+                document.getElementById("aHeader").style.marginRight = "0";
+            }
+
+        }
+
+        function navToggleOff() {
+            document.getElementById("navToggle").checked = false;
+        }
+    </script>
+
+
+    <img src="http://img2.3lian.com/2014/f5/63/d/16.jpg" id="img" style="display:none" />
+
+    <script>
+
+        var player1_left;
+        var player1_right;
+
+
+        var player2_left;
+        var player2_right;
+
+        var player1_left_num;
+        var player1_right_num;
+
+        var player2_left_num;
+        var player2_right_num;
+
+        var timer;
+
+        function startGame() {
+
+
+            player1_left_num = 1;
+            player1_right_num = 1;
+            player2_left_num = 1;
+            player2_right_num = 1;
+            timer = 1;
+
+            player1_left = new component_people(60, 70, 80, 400, "image", player1_left_num);
+
+            player1_right = new component_people(60, 70, 400, 400, "image", player1_right_num);
+
+
+            player2_left = new component_people(60, 70, 80, 100, "image", player2_left_num);
+
+
+            player2_right = new component_people(60, 70, 400, 100, "image", player2_right_num);
+
+            river = new component_object(1000, 40, 0, 270, "image", "河")
+
+
+            sod = new component_object(600, 600, 0, 0, "image", "背景")
+
+            time = new component_object("30px", "Consolas", 420, 580, "text", "無");
+
+
+
+
+            myGameArea.start();
+
+        }
+
+
+
+
+
+
+        var myGameArea = {
+            canvas: document.createElement("canvas"),
+            start: function () {
+                this.canvas.width = 600;
+                this.canvas.height = 600;
+                this.context = this.canvas.getContext("2d");
+
+                // var imgs = new Image();
+                // imgs.src = "sod.png";
+                //  imgs.onload = this.createPat(this.context,this.canvas,imgs);
+
+
+
+
+
+
+                document.body.insertBefore(this.canvas, document.body.childNodes[11]);
+
+                this.interval = setInterval(updateGameArea, 1);
+
+
+
+
+
+            },
+
+            clear: function () {
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            },
+
+
+
+            createPat: function (cxt, can, imgs) {
+
+
+
+                var bg = cxt.createPattern(imgs, "repeat");
+
+                cxt.fillStyle = bg;
+                cxt.fillRect(0, 0, can.width, can.height);
+            }
+
+
+        }
+
+
+
+        function component_people(width, height, x, y, type, num) {
+            this.type = type;
+
+
+            var state = 1; //存在
+
+
+            if (type == "image") {
+                this.image = new Image();
+
+                this.image.src = "images/" + num + ".png";
+            }
+            this.width = width + parseInt(num) * 30;
+            this.height = height + parseInt(num) * 30;
+
+            this.x = x;
+            this.y = y;
+
+
+            this.update = function (new_num) {
+
+                ctx = myGameArea.context;
+
+
+
+
+
+                if (type == "image") {
+
+                    this.image = new Image();
+                    this.image.src = "images/" + new_num + ".png";
+
+                    ctx.drawImage(
+                        this.image,
+                        this.x,
+                        this.y,
+                        this.width, this.height);
+                }
+
+
+
+
+            }
+
+        }
+
+
+        function component_object(width, height, x, y, type, name) {
+
+            this.type = type;
+            var console_river = 0;
+            var num = 1;
+
+            if (type == "image") {
+                this.image = new Image();
+                this.image.src = "images/" + name + ".png";
+
+            }
+
+
+
+
+
+
+            this.width = width;
+            this.height = height;
+
+            this.x = x;
+            this.y = y;
+
+
+            this.update = function () {
+
+                ctx = myGameArea.context;
+
+
+
+
+                if (type == "image") {
+
+                    if (name == "河") {
+
+
+                        if (console_river % 100 == 0) {
+                            num = (num % 3) + 1;
+                        }
+
+                        this.image.src = "images/" + name + num + ".png";
+
+                        console_river++;
+                    }
+
+
+                    ctx.drawImage(
+                        this.image,
+                        this.x,
+                        this.y,
+                        this.width, this.height);
+
+
+
+
+                }
+                else if (this.type == "text") {
+
+
+
+                    ctx.font = "normal 40px Microsoft JhengHei";
+
+                    ctx.strokeStyle = "#FFFF00";
+
+                    ctx.strokeText(this.text, this.x, this.y);
+
+
+
+                }
+                else {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+            }
+
+        }
+
+        function updateGameArea() {
+
+            if (player1_left.state == 0 && player1_right.state == 0) {
+                alert("恭喜上方獲勝!!!");
+
+                startGame();
+
+            }
+            else if (player2_left.state == 0 && player2_right.state == 0) {
+                alert("恭喜下方獲勝!!!");
+
+                startGame();
+            }
+
+            else {
+
+
+
+                if (player1_left_num >= 5) {
+
+                    player1_left.state = 0;
+                    player1_left_num = 0;
+                }
+
+                if (player1_right_num >= 5) {
+                    player1_right.state = 0;
+                    player1_right_num = 0;
+                }
+
+                if (player2_left_num >= 5) {
+
+                    player2_left.state = 0;
+                    player2_left_num = 0;
+                }
+
+                if (player2_right_num >= 5) {
+                    player2_right.state = 0;
+                    player2_right_num = 0;
+                }
+
+
+
+
+
+
+
+
+
+                sod.update();
+                river.update();
+
+                player1_left.update(player1_left_num);
+                player1_right.update(player1_right_num);
+
+                player2_left.update(player2_left_num);
+                player2_right.update(player2_right_num);
+
+                river.update();
+                if (timer % 2 == 1) {
+
+                    time.text = "回合:下方 ";
+                }
+                else {
+
+                    time.text = "回合:上方";
+                }
+                time.update();
+            }
+        }
+
+
+        function attack_left_to_left() {
+
+
+
+            if (timer % 2 == 1) // 下方攻擊
+            {
+                if (player2_left.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+                }
+                else if (player1_left.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+                    player2_left_num += player1_left_num;
+                    timer++;
+                }
+
+            }
+            else { //上方攻擊
+
+                if (player1_left.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+
+                }
+                else if (player2_left.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+
+                    player1_left_num += player2_left_num;
+                    timer++;
+                }
+
+
+            }
+
+
+
+
+        }
+
+
+        function attack_left_to_right() {
+
+
+            if (timer % 2 == 1) // 下方攻擊
+            {
+                if (player2_right.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+                }
+                else if (player1_left.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+                    player2_right_num += player1_left_num;
+                    timer++;
+                }
+
+            }
+            else {
+
+                if (player1_right.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+
+                }
+                else if (player2_left.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+
+                    player1_right_num += player2_left_num;
+                    timer++;
+                }
+
+
+            }
+        }
+
+
+        function attack_right_to_left() {
+
+            if (timer % 2 == 1) // 下方攻擊
+            {
+                if (player2_left.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+                }
+                else if (player1_right.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+                    player2_left_num += player1_right_num;
+                    timer++;
+                }
+
+            }
+            else {
+
+                if (player1_left.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+
+                }
+                else if (player2_right.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+
+                    player1_left_num += player2_right_num;
+                    timer++;
+                }
+
+
+            }
+        }
+
+
+        function attack_right_to_right() {
+
+
+            if (timer % 2 == 1) // 下方攻擊
+            {
+                if (player2_right.state == 0) {
+                    alert("幹!我已經死了 打三小鞭屍阿");
+                }
+                else if (player1_right.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+                    player2_right_num += player1_right_num;
+                    timer++;
+                }
+
+            }
+            else {
+
+                if (player1_right.state == 0) {
+                    alert("幹!我已經死了 打三小");
+
+                }
+                else if (player2_right.state == 0) {
+                    alert("幹 我已經死了 你還叫我攻擊?")
+                }
+                else {
+
+                    player1_right_num += player2_right_num;
+                    timer++;
+                }
+
+
+            }
+
+        }
+
+        function change() {
+
+
+            if (timer % 2 == 1) {
+                if (player1_left_num == 1 && player1_right_num == 1) {
+                    alert("數字相同不能交換!")
+                    return;
+                }
+
+                if ((player1_left.state == 0 || player1_right.state == 0) && (player1_left_num == 1 || player1_right_num == 1)) {
+                    alert("不能換!!!!!!")
+                    return
+                }
+
+
+
+            }
+            else {
+                if (player2_left_num == 1 && player2_right_num == 1) {
+                    alert("數字相同不能交換!")
+                    return;
+                }
+                if ((player2_left.state == 0 || player2_right.state == 0) && (player2_left_num == 1 || player2_right_num == 1)) {
+                    alert("不能換!!!!!!")
+                    return
+                }
+
+
+            }
+
+
+            var left = parseInt(prompt("左邊: ", ""));
+            var right = parseInt(prompt("右邊", ""));
+            new_total = left + right;
+
+
+
+            if (timer % 2 == 1) {
+                if ((player1_left_num == player1_right_num) && (right == left)) {
+                    alert("數字相同不能交換!")
+                    return;
+                }
+
+                if ((player1_left.state == 0 || player1_right.state == 0) && (player1_left_num == 1 || player1_right_num == 1)) {
+                    alert("不能換!!!!!!")
+                    return
+                }
+
+
+
+            }
+            else {
+                if ((player2_left_num == player2_right_num) && (right == left)) {
+                    alert("數字相同不能交換!")
+                    return;
+                }
+                if ((player2_left.state == 0 || player2_right.state == 0) && (player2_left_num == 1 || player2_right_num == 1)) {
+                    alert("不能換!!!!!!")
+                    return
+                }
+
+
+            }
+
+
+
+
+            console.log(left)
+            console.log(right)
+            if (left != null && right != null) {
+
+            } else {
+                alert("你按了[取消]按钮");
+            }
+
+            if (timer % 2 == 1) {
+                total = player1_left_num + player1_right_num;
+
+                if ((player1_left.state == 0 || player1_right.state == 0) && (left == 0 || right == 0)) {
+                    alert("有換等於沒換!!!");
+                }
+
+
+                else if (total == new_total) {
+                    if (player1_left_num != left) {
+
+
+                        player1_left_num = left;
+                        player1_right_num = right;
+
+                        player1_left.state = 1;
+                        player1_right.state = 1;
+
+                        timer++;
+                    }
+                    else {
+                        alert("幹 你根本沒換阿");
+                    }
+                }
+                else {
+                    alert("幹! 總和不同啦 想騙我?");
+                }
+
+
+
+            }
+            else {
+                total = player2_left_num + player2_right_num;
+                console.log(total);
+                console.log(new_total);
+
+                if ((player2_left.state == 0 || player2_right.state == 0) && (left == 0 || right == 0)) {
+                    alert("有換等於沒換!!!");
+                }
+
+                else if (total == new_total) {
+                    if (player2_left_num != left) {
+
+                        player2_left_num = left;
+                        player2_right_num = right;
+                        player2_left.state = 1;
+                        player2_right.state = 1;
+                        timer++;
+                    }
+                    else {
+                        alert("幹 你根本沒換阿");
+                    }
+                }
+
+                else {
+                    alert("幹! 總和不同啦 想騙我?");
+                }
+
+
+            }
+
+
+        }
+
+        function rule() {
+            alert("規則說明:\n此為加法遊戲，當某邊達到5時則會死亡，兩邊皆死亡就算輸\n其中可以使用交換，但相同數量時不可交換\n或是只剩1和0時也無法交換!\n亦不可做無意義的交換，例如30變03\n玩玩看就知道了!");
+        }
+
+
+    </script>
+
+</head>
+
+<body onload="navToggleOff()">
+    <img src="https://images.wallpaperscraft.com/image/city_silhouette_art_130201_2160x3840.jpg" class="MW_BG" />
+
+
+    <nav class="navbar navbar-expand-md navbar-dark"
+        style="background: rgba(0, 0, 0, 0.1); border-bottom: 0.1vmin solid rgba(255, 255, 255, 0.1); line-height: 6vmin">
+        <div class="container">
+            <a class="navbar-brand" href="home.html" style="font-size: 5vmin; font-weight: bold">Midterm Website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nva-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Personal Information
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="10427221_boot.html">10427221</a>
+                            <a class="dropdown-item" href="10427238_boot.html">10427238</a>
+                            <a class="dropdown-item" href="10627103_boot.html">10627103</a>
+                        </div>
+                    </li>
+                    <li class="nva-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Playground
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="game_1.html">加法遊戲</a>
+                            <a class="dropdown-item" href="game_2.html">怪物追逐戰</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div id="aMenu" class="game_Menu">
+        <input type="button" value="開始/重製" onclick="startGame()" ; /></a>
+        <input type="button" value="攻擊(左打左)" onclick="attack_left_to_left()" ; /></a>
+        <input type="button" value="攻擊(左打右)" onclick="attack_left_to_right()" ; /></a>
+        <input type="button" value="攻擊(右打左)" onclick="attack_right_to_left()" ; /></a>
+        <input type="button" value="攻擊(右打右)" onclick="attack_right_to_right()" ; /></a>
+        <input type="button" value="交換" onclick="change()" ; /></a>
+        <input type="button" value="規則說明" onclick="rule()" ; /></a>
+    </div>
+
+
+
+</body>
+
+</html>

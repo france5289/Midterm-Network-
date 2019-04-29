@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <script src="main.js"></script>
+
+    <style>
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Thasadith', sans-serif;
+            user-select: none;
+        }
+
+        .MW_BG {
+            min-height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            filter: brightness(30%);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .MW_Header {
+            background: rgba(0, 0, 0, 0.1);
+            border-bottom: 0.1vmin solid rgba(255, 255, 255, 0.1);
+            top: 0;
+            right: 0;
+            left: 0;
+            position: fixed;
+            overflow: hidden;
+            transition: 1s;
+            z-index: 3;
+        }
+
+        .MW_Header .mw_logo {
+            color: #ffffff;
+            margin-left: 2%;
+            font-size: 5vmin;
+            line-height: 10vmin;
+            text-decoration: none;
+            float: left;
+        }
+
+        .MW_Header .mw_nav_icon {
+            color: #ffffff;
+            margin-right: 2%;
+            font-size: 5vmin;
+            line-height: 10vmin;
+            float: right;
+            cursor: pointer;
+        }
+
+        .MW_Nav {
+            background-color: #000000;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            text-align: right;
+            position: fixed;
+            padding-top: 1.5vmin;
+            overflow: hidden;
+            transition: 1s;
+            z-index: 2;
+        }
+
+        .MW_Nav a {
+            color: #777777;
+            margin-right: 5%;
+            text-decoration: none;
+            font-size: 4.5vmin;
+            font-weight: bold;
+            line-height: 6vmin;
+            transition: 1s;
+            text-decoration: none;
+            font-family: 'Thasadith', sans-serif;
+        }
+
+        .MW_Nav a:hover {
+            color: #ffffff;
+        }
+
+        .MW_Menu {
+            opacity: 0;
+            right: 0;
+            left: 0;
+            margin-top: 17vmin;
+            text-align: center;
+            letter-spacing: 6vmin;
+            position: fixed;
+            transition: 1s ease-in;
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        .MW_Menu input{
+            background: rgba(255, 255, 255, 0.5);
+            background-image: url("source/poker.png");
+            background-size: 20vmin;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: transparent;
+            border-color: transparent;
+            border-radius: 1vmin;
+            height: 35vmin;
+            width: 25vmin;
+            font-size: 3vmin;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: 'Poiret One', cursive;
+            transition: 0.5s;
+        }
+
+        .MW_Menu input:hover{
+            background: rgba(0, 0, 0, 0.5);
+            background-image: url("source/poker.png");
+            background-position: center;
+            height: 42vmin;
+            width: 30vmin;
+            box-shadow: 0 0 10vmin 5vmin #000000;
+            animation: cardsBeating 1.5s infinite;
+        }
+
+        .MW_Menu:hover input:not(:hover){
+            opacity: 0.3;
+            background: rgba(0, 0, 0, 0.5);
+            background-image: url("source/poker.png");
+            background-position: center;
+            box-shadow: 0 0 10vmin 5vmin #000000;
+            animation: cardsBeating 1.5s infinite;
+        }
+
+        @keyframes cardsBeating {
+            0% {margin-top: 0vmin; background-size: 20vmin; color: #ffffff50; transform: rotate(0deg);}
+            60% {margin-top: 1vmin; background-size: 5vmin; color: #750d0d; transform: rotate(20deg);}
+            100% {margin-top: 0vmin; background-size: 20vmin; color: #ffffff50; transform: rotate(360deg);}
+        }
+
+        .MW_InformationTitle {
+            color: #ffffff;
+            opacity: 0;
+            right: 0;
+            left: 0;
+            margin-top: 60vmin;
+            position: fixed;
+            font-size: 7vmin;
+            text-align: center;
+            transition: 1s;
+            font-family: '微軟正黑體', sans-serif;
+        }
+    </style>
+
+    <script>
+            function navOnOrOff() {
+                var checkBox = document.getElementById("navToggle");
+
+                if ( checkBox.checked == true ) {
+                    document.getElementById("aNav").style.width = "40vmin";
+                    document.getElementById("aHeader").style.marginRight = "40vmin";
+                }
+
+                else {
+                    document.getElementById("aNav").style.width = "0";
+                    document.getElementById("aHeader").style.marginRight = "0";
+                }
+                
+            }
+
+            function navToggleOff() {
+                document.getElementById("navToggle").checked = false;
+            }
+
+            function appearTitle() {
+                navToggleOff();
+                document.getElementById("aMenu").style.opacity = "1";
+                document.getElementById("aTitle").style.opacity = "1";
+            }
+    </script>
+
+</head>
+<body onload="appearTitle()">
+    <img src="source/background.jpg" class="MW_BG"/>
+
+    <div id="aHeader" class="MW_Header">
+        <a href="home.html" class="mw_logo"><b>Midterm Website</b></a>
+        <input type="checkbox" id="navToggle" style="display: none" onclick="navOnOrOff()"/>
+        <label id="navicon" class="mw_nav_icon" for="navToggle">&#9776;</label>
+    </div>
+
+    <div id="aNav" class="MW_Nav">
+        <pre><a href="information.html">Personal Information</a></pre>
+        <pre><a style="cursor: pointer;">Playground</a></pre>
+        
+    </div>
+
+    <div id="aMenu" class="MW_Menu">
+        <a href="game_1.html"><input type="button" value="加法遊戲"/></a>
+        <a href="game_2.html"><input type="button" value="怪物追逐戰"/></a>
+    </div>
+
+    <div id="aTitle" class="MW_InformationTitle">
+        <p>就是現在，</p>
+        <p>選擇一個遊戲吧！</p>
+    </div>
+
+
+
+
+</body>
+</html>
