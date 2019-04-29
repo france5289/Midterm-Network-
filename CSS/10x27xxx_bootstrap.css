@@ -10,15 +10,10 @@ body {
 
 .MW_BG {
     min-height: 100%;
-    width: 100%;
     top: 0;
     left: 0;
     position: absolute;
     filter: brightness(30%);
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     z-index: -1;
 }
 dfn.Bio{

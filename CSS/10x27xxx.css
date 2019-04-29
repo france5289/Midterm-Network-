@@ -93,6 +93,10 @@
             z-index: 1;
         }
 
+
+
+
+
         .MW_Menu input{
             background: transparent;
             color: #ffffff;
@@ -105,5 +109,32 @@
         }
 
         .MW_Menu input:hover{
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+
+        .game_Menu {
+            background: linear-gradient(45deg, #09b3d3, transparent 45%, transparent 55%, #ff52a0);
+            right: 0;
+            left: 0;
+            margin-top: 2vmin;
+            text-align: center;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game_Menu input{
+            background: transparent;
+            color: #ffffff;
+            border-color: transparent;
+            font-size: 4vmin;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: '微軟正黑體', sans-serif;
+            transition: 0.8s;
+        }
+
+        .game_Menu input:hover{
             background: rgba(0, 0, 0, 0.5);
         }

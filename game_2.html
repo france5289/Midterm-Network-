@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Midterm Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" type="text/css" href="CSS/10x27xxx.css">
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="bootstrap-4.3.1-dist/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Thasadith" rel="stylesheet">
+    <script src="main.js"></script>
+
+
+    <style>
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Thasadith', sans-serif;
+            user-select: none;
+        }
+
+        canvas {
+
+            display: block;
+            margin: 40px auto 20px;
+            border: 1px solid rgba(212, 48, 37, 0.8);
+            box-shadow: 0 0 16px 2px rgba(212, 48, 37, 0.8);
+
+        }
+    </style>
+
+
+
+
+    <script>
+        function navOnOrOff() {
+            var checkBox = document.getElementById("navToggle");
+
+            if (checkBox.checked == true) {
+                document.getElementById("aNav").style.width = "40vmin";
+                document.getElementById("aHeader").style.marginRight = "40vmin";
+            }
+
+            else {
+                document.getElementById("aNav").style.width = "0";
+                document.getElementById("aHeader").style.marginRight = "0";
+            }
+
+        }
+
+        function navToggleOff() {
+            document.getElementById("navToggle").checked = false;
+        }
+    </script>
+
+
+    <img src="http://img2.3lian.com/2014/f5/63/d/16.jpg" id="img" style="display:none" />
+
+    <script>
+
+        var timer = 1000;
+        var con_start = 0; //控制start按鈕的
+        //-----------------------背景---------------------------
+        var backgroundReady = false;
+        var backgroundImage = new Image();
+        backgroundImage.onload = function () {
+            backgroundReady = true;
+        };
+
+        backgroundImage.src = "images/background.png";
+        //-----------------------英雄---------------------------
+
+        var heroReady = false;
+        var heroImage = new Image();
+        heroImage.onload = function () {
+            heroReady = true;
+        };
+        heroImage.src = "images/hero.png";
+
+        //-------------------------怪物--------------------------
+
+        var monsterReady = false;
+        var monsterImage = new Image();
+        monsterImage.onload = function () {
+            monsterReady = true;
+        };
+        monsterImage.src = "images/monster.png";
+        //-------------------------怪物--------------------------
+
+
+        var hero = {
+            speed: 5 //  移動速率
+        };
+        var monster = {
+            speedX: 1,
+            speedY: 1
+        };
+        var monstersCaught = 0;
+
+        // 按鍵控制
+        var keysDown = {};
+
+        addEventListener("keydown", function (e) {
+            keysDown[e.keyCode] = true;
+        }, false);
+
+        addEventListener("keyup", function (e) {
+            delete keysDown[e.keyCode];
+        }, false);
+
+
+
+
+        function reset() {
+            // Throw the monster somewhere on the screen randomly
+
+            monster.x = 35 + (Math.random() * (myGameArea.canvas.width - 95));
+            monster.y = 35 + (Math.random() * (myGameArea.canvas.height - 95));
+        }
+
+
+
+
+
+        function startGame() {
+
+
+            if (con_start == 0) {
+
+
+                myGameArea.start();
+                con_start = 1;
+            }
+
+
+
+
+
+        }
+
+
+
+        var myGameArea = {
+            canvas: document.createElement("canvas"),
+            start: function () {
+                this.canvas.width = 600;
+                this.canvas.height = 600;
+                this.context = this.canvas.getContext("2d");
+                document.body.insertBefore(this.canvas, document.body.childNodes[11]);
+
+
+                hero.x = myGameArea.canvas.width / 2;
+                hero.y = myGameArea.canvas.height / 2;
+
+                var w = window;
+                requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
+                // Let's play this game!
+
+
+                reset();
+                main();
+
+
+
+            },
+
+            clear: function () {
+
+                monstersCaught = 0;
+                timer = 1000;
+                reset();
+
+
+
+            },
+
+
+
+            render: function () {
+                if (backgroundReady) {
+                    this.context.drawImage(backgroundImage, 0, 0, 600, 600);
+                }
+
+                if (heroReady) {
+                    this.context.drawImage(heroImage, hero.x, hero.y);
+                }
+
+                if (monsterReady) {
+                    this.context.drawImage(monsterImage, monster.x, monster.y);
+                }
+
+                // Score
+                this.context.fillStyle = "rgb(250, 250, 250)";
+                this.context.font = "24px Helvetica";
+                this.context.textAlign = "left";
+                this.context.textBaseline = "top";
+                this.context.fillText("Goblins caught: " + monstersCaught, 32, 32);
+
+
+                this.context.fillStyle = "rgb(250, 250, 250)";
+                this.context.font = "24px Helvetica";
+                this.context.textAlign = "left";
+                this.context.textBaseline = "top";
+                this.context.fillText("時間: " + timer, 80, 80);
+                timer--;
+
+
+
+            },
+
+
+
+        }
+
+
+
+
+
+        var main = function () {
+
+            if (timer == 0) {
+                alert("遊戲結束!! 得分為: " + monstersCaught);
+                myGameArea.clear();
+            }
+
+            update();
+            myGameArea.render();
+
+
+
+            requestAnimationFrame(main); //類似setinterval功能
+        };
+
+
+
+
+        function update() {
+            if (87 in keysDown) { // 上
+                hero.y -= hero.speed;
+            }
+            if (83 in keysDown) { // 下
+                hero.y += hero.speed;
+            }
+            if (65 in keysDown) { // 左
+                hero.x -= hero.speed;
+            }
+            if (68 in keysDown) { // 右
+                hero.x += hero.speed;
+            }
+
+            if (hero.x > 535) {
+                hero.x = 535;
+            }
+            if (hero.x < 35) {
+                hero.x = 35;
+            }
+
+
+            if (hero.y > 535) {
+                hero.y = 535;
+            }
+            if (hero.y < 35) {
+                hero.y = 35;
+            }
+
+
+            if (monster.x > 535) {
+                monster.speedX = 1 - (Math.random() * 2);
+                monster.speedY = 1 - (Math.random() * 2);
+
+            }
+            if (monster.x < 35) {
+                monster.speedX = 1 - (Math.random() * 2);
+                monster.speedY = 1 - (Math.random() * 2);
+
+            }
+
+
+            if (monster.y > 535) {
+                monster.speedX = 1 - (Math.random() * 2);
+                monster.speedY = 1 - (Math.random() * 2);
+            }
+            if (monster.y < 35) {
+                monster.speedX = 1 - (Math.random() * 2);
+                monster.speedY = 1 - (Math.random() * 2);
+            }
+
+
+
+            if (monster.x > 535) {
+                monster.x = 535;
+            }
+            if (monster.x < 35) {
+                monster.x = 35;
+            }
+
+
+            if (monster.y > 535) {
+                monster.y = 535;
+            }
+            if (monster.y < 35) {
+                monster.y = 35;
+            }
+
+
+            if (monster.speedX > 0) {
+                monster.speedX += 1;
+            }
+
+            if (monster.speedX < 0) {
+                monster.speedX -= 1;
+            }
+
+            if (monster.speedY > 0) {
+                monster.speedY += 1;
+            }
+
+            if (monster.speedY < 0) {
+                monster.speedY -= 1;
+            }
+
+            monster.x += monster.speedX;
+            monster.y += monster.speedY;
+
+
+
+
+
+
+
+
+            // Are they touching?
+            if (
+                hero.x <= (monster.x + 32)
+                && monster.x <= (hero.x + 32)
+                && hero.y <= (monster.y + 32)
+                && monster.y <= (hero.y + 32)
+            ) {
+                monstersCaught++;
+                reset();
+            }
+
+
+
+
+
+        }
+
+
+
+        function rule() {
+            alert("規則說明:\n W:上 S:下 A:左 那你猜猜看右是什麼? ");
+        }
+
+
+
+
+
+
+
+
+    </script>
+
+</head>
+
+<body onload="navToggleOff()">
+    <img src="https://images.wallpaperscraft.com/image/city_silhouette_art_130201_2160x3840.jpg" class="MW_BG" />
+
+    <nav class="navbar navbar-expand-md navbar-dark"
+        style="background: rgba(0, 0, 0, 0.1); border-bottom: 0.1vmin solid rgba(255, 255, 255, 0.1); line-height: 6vmin">
+        <div class="container">
+            <a class="navbar-brand" href="home.html" style="font-size: 5vmin; font-weight: bold">Midterm Website</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nva-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Personal Information
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="10427221_boot.html">10427221</a>
+                            <a class="dropdown-item" href="10427238_boot.html">10427238</a>
+                            <a class="dropdown-item" href="10627103_boot.html">10627103</a>
+                        </div>
+                    </li>
+                    <li class="nva-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Playground
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="game_1.html">加法遊戲</a>
+                            <a class="dropdown-item" href="game_2.html">怪物追逐戰</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div id="aMenu" class="game_Menu">
+        <input type="button" value="開始" onclick="startGame()" ; /></a>
+        <input type="button" value="重置" onclick="myGameArea.clear()" ; /></a>
+        <input type="button" value="規則說明" onclick="rule()" ; /></a>
+    </div>
+
+
+
+</body>
+
+</html>
