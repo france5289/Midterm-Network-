@@ -119,7 +119,7 @@
 
 
         function reset() {
-            // Throw the monster somewhere on the screen randomly
+            
 
             monster.x = 35 + (Math.random() * (myGameArea.canvas.width - 95));
             monster.y = 35 + (Math.random() * (myGameArea.canvas.height - 95));
@@ -162,7 +162,7 @@
                 var w = window;
                 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
-                // Let's play this game!
+              
 
 
                 reset();
@@ -236,7 +236,7 @@
 
 
 
-            requestAnimationFrame(main); //類似setinterval功能
+            requestAnimationFrame(main); //類似setinterval功能 更讚的唷!
         };
 
 
@@ -337,7 +337,7 @@
 
 
 
-            // Are they touching?
+            
             if (
                 hero.x <= (monster.x + 32)
                 && monster.x <= (hero.x + 32)
